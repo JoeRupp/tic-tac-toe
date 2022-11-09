@@ -1,0 +1,13 @@
+class Player {
+  constructor(id, token) {
+    this.id = id;
+    this.token = token;
+    this.wins = 0;
+  };
+
+  increaseWinCounter() {
+    this.wins++;
+  };
+};
+
+export default Player;
