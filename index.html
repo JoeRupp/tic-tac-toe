@@ -4,6 +4,8 @@
 <head>
   <title>Tic-Tac-Toe</title>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="assets/x-icon" href="assets/favicon.png">
   <link rel="stylesheet" href="https://use.typekit.net/hxl3qrx.css">
   <link rel="stylesheet" href="./styles.css">
@@ -13,7 +15,7 @@
   <aside class="player">
     <section class="player-info">
       <h2>You</h2>
-      <h3>Score: 0</h3>
+      <h3 class="user-score">Score: 0</h3>
     </section>
     <div class="toggle">
       <div class="option selected">
@@ -27,33 +29,33 @@
   <main>
     <header>
       <h1>TIC-TAC-TOE</h1>
-      <h2 class="hidden">Draw</h2>
+      <h2 class="outcome hidden">Draw</h2>
     </header>
     <section class="board">
       <div class="board-row">
-        <div class="board-section 0-0"></div>
-        <div class="board-section 0-1"></div>
-        <div class="board-section 0-2"></div>
+        <div class="board-section box-zero"></div>
+        <div class="board-section box-one"></div>
+        <div class="board-section box-two"></div>
       </div>
       <div class="board-row">
-        <div class="board-section 1-3"></div>
-        <div class="board-section 1-4"></div>
-        <div class="board-section 1-5"></div>
+        <div class="board-section box-three"></div>
+        <div class="board-section box-four"></div>
+        <div class="board-section box-five"></div>
       </div>
       <div class="board-row">
-        <div class="board-section 2-6"></div>
-        <div class="board-section 2-7"></div>
-        <div class="board-section 2-8"></div>
+        <div class="board-section box-six"></div>
+        <div class="board-section box-seven"></div>
+        <div class="board-section box-eight"></div>
       </div>
     </section>
     <footer>
-      <button>Reset Scores</button>
+      <button class="reset-btn">Reset Scores</button>
     </footer>
   </main>
   <aside class="player">
     <section class="player-info">
       <h2>CPU</h2>
-      <h3>Score: 0</h3>
+      <h3 class=".cpu-score">Score: 0</h3>
     </section>
     <div class="toggle">
       <div class="option selected">
@@ -65,5 +67,9 @@
     </div>
   </aside>
 </body>
+
+<script type="text/javascript" src="player.js"></script>
+<script type="text/javascript" src="game.js"></script>
+<script type="text/javascript" src="main.js"></script>
 
 </html>

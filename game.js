@@ -1,5 +1,3 @@
-import Player from "./player";
-
 class Game {
   constructor() {
     this.turn = true;
@@ -85,5 +83,3 @@ class Game {
   }
 
 }
-
-export default Game;
