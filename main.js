@@ -31,8 +31,16 @@ const pieceSix = document.querySelector('.pieceSix');
 const pieceSeven = document.querySelector('.pieceSeven');
 const pieceEight = document.querySelector('.pieceEight');
 const resetBtn = document.querySelector('.reset-btn');
-const playerBackgrounds = document.querySelector('.player');
+const resetBoardBtn = document.querySelector('.reset-board-btn');
 const boardBackgrounds = document.querySelector('main');
+const h1 = document.querySelector('h1');
+const btns = document.querySelectorAll('button');
+const playerBackgrounds = document.querySelectorAll('.player')
+const h2s = document.querySelectorAll('h2')
+const h3s = document.querySelectorAll('h3')
+const toggles = document.querySelectorAll('.toggle')
+const ps = document.querySelectorAll('p')
+const boardSections = document.querySelectorAll('.board-section')
 
 const piecePlacements = [
   pieceZero,
@@ -55,19 +63,105 @@ const restartGame = () => {
 }
 
 const switchToDarkMode = () => {
+  boardBackgrounds.classList.add('darkmode-1');
+  h1.classList.add('darkmode-text');
 
+  if (currentGame.user.token === 'X') {
+    toggleUserX.classList.add('darkmode-2');
+  } else {
+    toggleUserO.classList.add('darkmode-2');
+  }
+  
+  for (const player of playerBackgrounds) {
+    player.classList.add('darkmode-2');
+  }
+
+  for (const h2 of h2s) {
+    h2.classList.add('darkmode-text');
+  }
+
+  for (const h3 of h3s) {
+    h3.classList.add('darkmode-text');
+  }
+
+  for (const toggle of toggles) {
+    toggle.classList.add('darkmode-1');
+  }
+
+  for (const btn of btns) {
+    btn.classList.add('darkmode-1','darkmode-text', 'darkmode-box-shadow');
+  }
+
+  for (const p of ps) {
+    p.classList.add('darkmode-text');
+  }
+
+  for (const boardSection of boardSections) {
+    boardSection.classList.add('darkmode-1', 'darkmode-box-shadow');
+  }
+}
+
+const switchToLightMode = () => {
+  boardBackgrounds.classList.remove('darkmode-1');
+  h1.classList.remove('darkmode-text');
+
+  if (currentGame.user.token === 'X') {
+    toggleUserX.classList.remove('darkmode-2');
+  } else {
+    toggleUserO.classList.remove('darkmode-2');
+  }
+
+  for (const player of playerBackgrounds) {
+    player.classList.remove('darkmode-2');
+  }
+
+  for (const h2 of h2s) {
+    h2.classList.remove('darkmode-text');
+  }
+
+  for (const h3 of h3s) {
+    h3.classList.remove('darkmode-text');
+  }
+
+  for (const toggle of toggles) {
+    toggle.classList.remove('darkmode-1');
+  }
+
+  for (const btn of btns) {
+    btn.classList.remove('darkmode-1','darkmode-text', 'darkmode-box-shadow');
+  }
+
+  for (const p of ps) {
+    p.classList.remove('darkmode-text');
+  }
+
+  for (const boardSection of boardSections) {
+    boardSection.classList.remove('darkmode-1', 'darkmode-box-shadow');
+  }
 }
 
 const togglePlayerSymbols = () => {
   if (currentGame.user.token === 'X') {
     currentGame.user.token = 'O';
-    toggleUserO.classList.remove('selected');
-    toggleUserX.classList.add('selected');
+    currentGame.enemy.token = 'X';
+    if (darkModeOn) {
+      toggleUserO.classList.add('selected', 'darkmode-2');
+      toggleUserX.classList.remove('selected', 'darkmode-2');
+    } else {
+      toggleUserO.classList.add('selected');
+      toggleUserX.classList.remove('selected');
+    } 
     updateBoard()
   } else {
     currentGame.user.token = 'X';
-    toggleUserO.classList.add('selected');
-    toggleUserX.classList.remove('selected');
+    currentGame.enemy.token = 'O';
+    if (darkModeOn) {
+      toggleUserO.classList.remove('selected', 'darkmode-2');
+      toggleUserX.classList.add('selected', 'darkmode-2');
+    } else {
+      toggleUserO.classList.remove('selected');
+      toggleUserX.classList.add('selected');
+    } 
     updateBoard()
   }
 }
@@ -75,11 +169,12 @@ const togglePlayerSymbols = () => {
 const toggleLightDarkMode = () => {
   if (darkModeOn) {
     toggleLightMode.classList.add('selected');
-    toggleDarkMode.classList.remove('selected');
+    toggleDarkMode.classList.remove('selected', 'darkmode-2');
     darkModeOn = false;
+    switchToLightMode()
   } else {
     toggleLightMode.classList.remove('selected');
-    toggleDarkMode.classList.add('selected');
+    toggleDarkMode.classList.add('selected', 'darkmode-2');
     darkModeOn = true;
     switchToDarkMode()
   }
@@ -134,6 +229,5 @@ resetBtn.addEventListener('click', restartGame);
 gameBoard.addEventListener('click', function(event) {
   if (event.target.classList[0] === 'board-section') {
     takeTurn(boxOptions[event.target.classList[1]], boxOptions[event.target.classList[2]])
-    console.log(currentGame.board)
   }
 });
