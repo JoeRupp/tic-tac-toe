@@ -39,34 +39,38 @@ class Game {
   checkBoard() {
     for (let i = 0; i < 3; i++) {
       if (this.board[0][i] === this.board[1][i] === this.board[2][i]) {
-        this.declareWinner()
+        return this.declareWinner()
       }
     }
 
     for (let r = 0; r < 3; r++) {
         if (this.board[r].every( i => i === this.board[r][0])) {
-          this.declareWinner()
+          return this.declareWinner()
         }
     }
 
     if (this.board[0][0] === this.board[1][1] === this.board[2][2]) {
-      this.declareWinner()
+      return this.declareWinner()
     }
 
     if (this.board[0][2] === this.board[1][1] === this.board[2][0]) {
-      this.declareWinner()
+      return this.declareWinner()
     }
 
     if (this.board.flat().filter((num) => num > 0).length === 0) {
-      this.declareTie()
+      return this.declareTie()
     }
   }
 
   takeTurn(row, placement) {
     if (this.turn) {
-      this.board = this.board[row].replace(placement, -1)
+      const index = this.board[row].indexOf(placement)
+      this.board[row][index] = -1
+      this.changeTurn()
     } else {
-      this.board = this.board[row].replace(placement, -2)
+      const index = this.board[row].indexOf(placement)
+      this.board[row][index] = -2
+      this.changeTurn()
     }
   }
 
@@ -76,9 +80,9 @@ class Game {
     if (enemyPick <= 3) {
       this.takeTurn(0, enemyPick)
     } else if (enemyPick >= 6) {
-      this.takeTurn(1, enemyPick)
-    } else {
       this.takeTurn(2, enemyPick)
+    } else {
+      this.takeTurn(1, enemyPick)
     }
   }
 
