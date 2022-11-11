@@ -19,58 +19,47 @@ class Game {
     this.turn = this.turn ? false : true
   }
 
-  declareWinner() {
+  decideWinner() {
     if (this.turn) {
-      this.user.increaseWinCounter()
-      this.resetGame
-      return (-1)
+      return this.user.id
     } else {
-      this.enemy.increaseWinCounter()
-      this.resetGame
-      return (-2)
+      return this.enemy.id
     }
-  }
-
-  declareTie() {
-    this.resetGame
-    return (0)
   }
 
   checkBoard() {
     for (let i = 0; i < 3; i++) {
-      if (this.board[0][i] === this.board[1][i] === this.board[2][i]) {
-        return this.declareWinner()
+      if (this.board[0][i] === this.board[1][i] && this.board[0][i] === this.board[2][i]) {
+        return this.decideWinner()
       }
     }
 
     for (let r = 0; r < 3; r++) {
         if (this.board[r].every( i => i === this.board[r][0])) {
-          return this.declareWinner()
+          return this.decideWinner()
         }
     }
 
-    if (this.board[0][0] === this.board[1][1] === this.board[2][2]) {
-      return this.declareWinner()
+    if (this.board[0][0] === this.board[1][1] && this.board[0][0] === this.board[2][2]) {
+      return this.decideWinner()
     }
 
-    if (this.board[0][2] === this.board[1][1] === this.board[2][0]) {
-      return this.declareWinner()
+    if (this.board[0][2] === this.board[1][1] && this.board[0][2] === this.board[2][0]) {
+      return this.decideWinner()
     }
 
     if (this.board.flat().filter((num) => num > 0).length === 0) {
-      return this.declareTie()
+      return 0
     }
   }
 
   takeTurn(row, placement) {
     if (this.turn) {
       const index = this.board[row].indexOf(placement)
-      this.board[row][index] = -1
-      this.changeTurn()
+      this.board[row][index] = this.user.id
     } else {
       const index = this.board[row].indexOf(placement)
-      this.board[row][index] = -2
-      this.changeTurn()
+      this.board[row][index] = this.enemy.id
     }
   }
 

@@ -1,5 +1,6 @@
 let currentGame;
 let darkModeOn = false;
+let winnerDeclared = false;
 const boxOptions = {
   zeroo: 0,
   zero: 0,
@@ -32,6 +33,7 @@ const pieceSeven = document.querySelector('.pieceSeven');
 const pieceEight = document.querySelector('.pieceEight');
 const resetBtn = document.querySelector('.reset-btn');
 const resetBoardBtn = document.querySelector('.reset-board-btn');
+const cpuFirstBtn = document.querySelector('.cpu-first-btn')
 const boardBackgrounds = document.querySelector('main');
 const h1 = document.querySelector('h1');
 const btns = document.querySelectorAll('button');
@@ -60,11 +62,14 @@ const makeNewGame = () => {
 
 const restartGame = () => {
   currentGame.restartGame()
+  cpuScore.innerText = `Score: ${currentGame.enemy.wins}`
+  userScore.innerText = `Score: ${currentGame.user.wins}`
 }
 
 const resetBoard = () => {
   currentGame.resetGame()
   updateBoard()
+  cpuFirstBtn.classList.remove('collapsed')
 }
 
 const switchToDarkMode = () => {
@@ -189,14 +194,19 @@ const declareWinner = () => {
   if (currentGame.checkBoard() === 0) {
     gameOutcome.classList.remove('hidden')
     gameOutcome.innerText = "Draw"
-  } else if (currentGame.checkBoard() === -1) {
+    winnerDeclared = true
+  } else if (currentGame.checkBoard() === currentGame.user.id) {
+    currentGame.user.increaseWinCounter()
     gameOutcome.classList.remove('hidden')
     gameOutcome.innerText = "You Win"
     userScore.innerText = `Score: ${currentGame.user.wins}`
-  } else if (currentGame.checkBoard() === -2) {
+    winnerDeclared = true
+  } else if (currentGame.checkBoard() === currentGame.enemy.id) {
+    currentGame.enemy.increaseWinCounter()
     gameOutcome.classList.remove('hidden')
     gameOutcome.innerText = "CPU Wins"
     cpuScore.innerText = `Score: ${currentGame.enemy.wins}`
+    winnerDeclared = true
   }
 }
 
@@ -216,13 +226,23 @@ const takeTurn = (row, placement) => {
   currentGame.takeTurn(row, placement)
   updateBoard()
   declareWinner()
-  setTimeout(cpuTurn, 1000)
+  if (!winnerDeclared) {
+    currentGame.changeTurn()
+    setTimeout(cpuTurn, 1000)
+  }
 }
 
 const cpuTurn = () => {
   currentGame.enemyTurn()
   updateBoard()
   declareWinner()
+  currentGame.changeTurn()
+}
+
+const cpuGoesFirst = () => {
+  currentGame.changeTurn()
+  cpuTurn()
+  cpuFirstBtn.classList.add('collapsed')
 }
 
 window.addEventListener('load', makeNewGame());
@@ -232,10 +252,17 @@ toggleUserO.addEventListener('click', togglePlayerSymbols);
 toggleLightMode.addEventListener('click', toggleLightDarkMode);
 toggleDarkMode.addEventListener('click', toggleLightDarkMode);
 resetBtn.addEventListener('click', restartGame);
-resetBoardBtn.addEventListener('click', resetBoard)
+resetBoardBtn.addEventListener('click', resetBoard);
+cpuFirstBtn.addEventListener('click', cpuGoesFirst)
 
 gameBoard.addEventListener('click', function(event) {
-  if (event.target.classList[0] === 'board-section') {
+  if (winnerDeclared) {
+    resetBoard()
+    winnerDeclared = false
+    gameOutcome.classList.add('hidden')
+    cpuFirstBtn.classList.remove('collapsed')
+  } else if (event.target.classList[0] === 'board-section') {
     takeTurn(boxOptions[event.target.classList[1]], boxOptions[event.target.classList[2]])
+    cpuFirstBtn.classList.add('collapsed')
   }
 });

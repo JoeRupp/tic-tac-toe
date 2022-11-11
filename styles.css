@@ -141,8 +141,8 @@ button {
   border-style: solid;
   border-color: rgb(234, 234, 234);
   cursor: pointer;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
 }
 
 button:active {
@@ -152,6 +152,10 @@ button:active {
 
 .hidden {
   visibility: hidden;
+}
+
+.collapsed {
+  display: none;
 }
 
 .darkmode-1 {
