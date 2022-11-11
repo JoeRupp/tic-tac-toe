@@ -1,5 +1,3 @@
-import Player from "./player";
-
 class Game {
   constructor() {
     this.turn = true;
@@ -21,54 +19,47 @@ class Game {
     this.turn = this.turn ? false : true
   }
 
-  declareWinner() {
+  decideWinner() {
     if (this.turn) {
-      this.user.increaseWinCounter()
-      this.resetGame
-      return (-1)
+      return this.user.id
     } else {
-      this.enemy.increaseWinCounter()
-      this.resetGame
-      return (-2)
+      return this.enemy.id
     }
-  }
-
-  declareTie() {
-    this.resetGame
-    return (0)
   }
 
   checkBoard() {
     for (let i = 0; i < 3; i++) {
-      if (this.board[0][i] === this.board[1][i] === this.board[2][i]) {
-        this.declareWinner()
+      if (this.board[0][i] === this.board[1][i] && this.board[0][i] === this.board[2][i]) {
+        return this.decideWinner()
       }
     }
 
     for (let r = 0; r < 3; r++) {
         if (this.board[r].every( i => i === this.board[r][0])) {
-          this.declareWinner()
+          return this.decideWinner()
         }
     }
 
-    if (this.board[0][0] === this.board[1][1] === this.board[2][2]) {
-      this.declareWinner()
+    if (this.board[0][0] === this.board[1][1] && this.board[0][0] === this.board[2][2]) {
+      return this.decideWinner()
     }
 
-    if (this.board[0][2] === this.board[1][1] === this.board[2][0]) {
-      this.declareWinner()
+    if (this.board[0][2] === this.board[1][1] && this.board[0][2] === this.board[2][0]) {
+      return this.decideWinner()
     }
 
     if (this.board.flat().filter((num) => num > 0).length === 0) {
-      this.declareTie()
+      return 0
     }
   }
 
   takeTurn(row, placement) {
     if (this.turn) {
-      this.board = this.board[row].replace(placement, -1)
+      const index = this.board[row].indexOf(placement)
+      this.board[row][index] = this.user.id
     } else {
-      this.board = this.board[row].replace(placement, -2)
+      const index = this.board[row].indexOf(placement)
+      this.board[row][index] = this.enemy.id
     }
   }
 
@@ -78,12 +69,10 @@ class Game {
     if (enemyPick <= 3) {
       this.takeTurn(0, enemyPick)
     } else if (enemyPick >= 6) {
-      this.takeTurn(1, enemyPick)
-    } else {
       this.takeTurn(2, enemyPick)
+    } else {
+      this.takeTurn(1, enemyPick)
     }
   }
 
 }
-
-export default Game;

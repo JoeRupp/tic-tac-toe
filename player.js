@@ -9,5 +9,3 @@ class Player {
     this.wins++;
   };
 };
-
-export default Player;
