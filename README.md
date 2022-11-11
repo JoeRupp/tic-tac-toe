@@ -1,11 +1,11 @@
-# TIC-TAC-TOE! <img src="https://user-images.githubusercontent.com/96392562/201264869-ff214964-6984-4be0-9d04-7919fc9bb27d.png" alt="white X inside of black square with rounded corners" width="30"/> 
+# TIC-TAC-TOE!   <img src="https://user-images.githubusercontent.com/96392562/201264869-ff214964-6984-4be0-9d04-7919fc9bb27d.png" alt="white X inside of black square with rounded corners" width="32"/> 
 
 ## Overview:
 Tic-tac-toe is an application built with vanilla JavaScript, CSS, and HTML. The goal of this project was to pratice some of the fundamentals of frontend web development.
 
 Upon starting the application, a user is able to play a game of tic-tac-toe against a computer oppontent. Getting three 'X's or 'O's in a row (horizontally, vertically, or diagonally) determines the winner. A player can choose thier piece ('X' or 'O') and place it on the board. They can also decide to have the CPU player go first. 
 
-[Deployed App]()
+[Deployed App](https://joerupp.github.io/tic-tac-toe/)
 
 ## Set Up:
 1. Fork this repo to create your own copy.
