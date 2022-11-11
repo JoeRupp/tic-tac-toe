@@ -62,6 +62,11 @@ const restartGame = () => {
   currentGame.restartGame()
 }
 
+const resetBoard = () => {
+  currentGame.resetGame()
+  updateBoard()
+}
+
 const switchToDarkMode = () => {
   boardBackgrounds.classList.add('darkmode-1');
   h1.classList.add('darkmode-text');
@@ -201,6 +206,8 @@ const updateBoard = () => {
       piecePlacements[index].innerText = currentGame.user.token
     } else if (position === -2) {
       piecePlacements[index].innerText = currentGame.enemy.token
+    } else {
+      piecePlacements[index].innerText = ''
     }
   })
 }
@@ -225,6 +232,7 @@ toggleUserO.addEventListener('click', togglePlayerSymbols);
 toggleLightMode.addEventListener('click', toggleLightDarkMode);
 toggleDarkMode.addEventListener('click', toggleLightDarkMode);
 resetBtn.addEventListener('click', restartGame);
+resetBoardBtn.addEventListener('click', resetBoard)
 
 gameBoard.addEventListener('click', function(event) {
   if (event.target.classList[0] === 'board-section') {
