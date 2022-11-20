@@ -48,7 +48,7 @@ class Game {
       return this.decideWinner()
     }
 
-    if (this.board.flat().filter((num) => num > 0).length === 0) {
+    if (this.board.flat().filter((num) => num >= 0).length === 0) {
       return 0
     }
   }

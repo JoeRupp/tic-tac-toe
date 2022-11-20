@@ -69,6 +69,8 @@ const restartGame = () => {
 const resetBoard = () => {
   currentGame.resetGame()
   updateBoard()
+  winnerDeclared = false
+  gameOutcome.classList.add('hidden')
   cpuFirstBtn.classList.remove('collapsed')
 }
 
@@ -192,6 +194,7 @@ const toggleLightDarkMode = () => {
 
 const declareWinner = () => {
   if (currentGame.checkBoard() === 0) {
+    console.log(currentGame.board)
     gameOutcome.classList.remove('hidden')
     gameOutcome.innerText = "Draw"
     winnerDeclared = true
@@ -258,9 +261,6 @@ cpuFirstBtn.addEventListener('click', cpuGoesFirst)
 gameBoard.addEventListener('click', function(event) {
   if (winnerDeclared) {
     resetBoard()
-    winnerDeclared = false
-    gameOutcome.classList.add('hidden')
-    cpuFirstBtn.classList.remove('collapsed')
   } else if (event.target.classList[0] === 'board-section') {
     takeTurn(boxOptions[event.target.classList[1]], boxOptions[event.target.classList[2]])
     cpuFirstBtn.classList.add('collapsed')
