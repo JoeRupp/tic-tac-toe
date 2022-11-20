@@ -66,7 +66,7 @@ class Game {
   enemyTurn() {
     const availableSpots = this.board.flat().filter((num) => num > 0)
     const enemyPick = availableSpots[Math.floor(Math.random() * availableSpots.length)]
-    if (enemyPick <= 3) {
+    if (enemyPick <= 2) {
       this.takeTurn(0, enemyPick)
     } else if (enemyPick >= 6) {
       this.takeTurn(2, enemyPick)
