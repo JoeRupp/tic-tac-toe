@@ -261,7 +261,7 @@ cpuFirstBtn.addEventListener('click', cpuGoesFirst)
 gameBoard.addEventListener('click', function(event) {
   if (winnerDeclared) {
     resetBoard()
-  } else if (event.target.classList[0] === 'board-section') {
+  } else if (event.target.classList[0] === 'board-section' && currentGame.board.flat()[boxOptions[event.target.classList[2]]] >= 0) {
     takeTurn(boxOptions[event.target.classList[1]], boxOptions[event.target.classList[2]])
     cpuFirstBtn.classList.add('collapsed')
   }
